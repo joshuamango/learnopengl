@@ -3,13 +3,10 @@
 #include "LoadShader.h"
 
 int LoadShader::loadVertexShader()
-
 {
-	unsigned int vertexShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
-
 
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
 
