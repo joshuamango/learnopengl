@@ -3,7 +3,8 @@
 #include <iostream>
 #include "LoadShader.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
 	glViewport(0, 0, width, height);
 }
 
@@ -13,22 +14,25 @@ void processInput(GLFWwindow *window)
 		glfwSetWindowShouldClose(window, true);
 }
 
-int main() {
+int main()
+{
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	
 	GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
-	if (window == NULL) {
+	if (window == NULL)
+	{
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
 
 	glfwMakeContextCurrent(window);
-	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
@@ -38,13 +42,13 @@ int main() {
 
 	// Load Shaders
 	LoadShader shaderLoader;
-
 	shaderLoader.readVertexShader("vertexShader.glsl");
 	shaderLoader.readFragmentShader("fragmentShader.glsl");
-	
 	shaderLoader.loadShaderProgram();
 	unsigned int shaderProgram = shaderLoader.getShaderProgram();
-	float vertices[] = {
+
+	float vertices[] =
+	{
 		// positions		// colors
 		-0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f,
 		0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f,
@@ -71,7 +75,8 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-	while (!glfwWindowShouldClose(window)) {
+	while (!glfwWindowShouldClose(window))
+	{
 		processInput(window);
 
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
