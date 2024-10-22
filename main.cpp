@@ -38,6 +38,10 @@ int main() {
 
 	// Load Shaders
 	LoadShader shaderLoader;
+
+	shaderLoader.readVertexShader("vertexShader.glsl");
+	shaderLoader.readFragmentShader("fragmentShader.glsl");
+	
 	shaderLoader.loadShaderProgram();
 	unsigned int shaderProgram = shaderLoader.getShaderProgram();
 	float vertices[] = {

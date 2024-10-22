@@ -1,11 +1,17 @@
 #include <glad/glad.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include "LoadShader.h"
+
+using namespace std;
 
 int LoadShader::loadVertexShader()
 {
+	const char* shaderSource = vertexShaderSource.c_str();
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glShaderSource(vertexShader, 1, &shaderSource, NULL);
 	glCompileShader(vertexShader);
 
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
@@ -21,8 +27,9 @@ int LoadShader::loadVertexShader()
 
 int LoadShader::loadFragmentShader()
 {
+	const char* shaderSource = fragmentShaderSource.c_str();
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glShaderSource(fragmentShader, 1, &shaderSource, NULL);
 	glCompileShader(fragmentShader);
 
 	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
@@ -66,4 +73,20 @@ int LoadShader::loadShaderProgram()
 unsigned int LoadShader::getShaderProgram()
 {
 	return shaderProgram;
+}
+
+void LoadShader::readVertexShader(string filename)
+{
+	fstream sourceFile(filename);
+	stringstream sourceStream;
+	sourceStream << sourceFile.rdbuf();
+	vertexShaderSource = sourceStream.str();
+}
+
+void LoadShader::readFragmentShader(string filename)
+{
+	fstream sourceFile(filename);
+	stringstream sourceStream;
+	sourceStream << sourceFile.rdbuf();
+	fragmentShaderSource = sourceStream.str();
 }
